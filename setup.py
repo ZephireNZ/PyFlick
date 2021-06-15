@@ -9,6 +9,7 @@ setuptools.setup(
     author="ZephireNZ",
     author_email="brynley+pypi@zephire.nz",
     description="Python API For Flick Electric in New Zealand",
+    license="MIT",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/ZephireNZ/PyFlick",
