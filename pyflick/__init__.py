@@ -14,8 +14,10 @@ class FlickAPI():
         self._auth: AbstractFlickAuth = auth
         self._host: str = host
 
-    async def getPricing(self, url: str = DEFAULT_PRICE_ENDPOINT) -> dict:
-        response = await self._auth.request("GET", url)
+    async def getSupplyNode(self) -> str:
+        response = await self._auth.request("GET", "/customer/v1/accounts?include=main_consumer", params={
+            "include": "main_consumer"
+        })
 
         async with response:
             if response.status != 200:
@@ -24,6 +26,24 @@ class FlickAPI():
                     "message": await response.text()
                 })
 
+            return (await response.json())["data"]["main_consumer"]["supply_node_ref"]
+
+    async def getPricing(self, supply_node: str, start_at: dt, end_at: dt) -> dict:
+        response = await self._auth.request("GET", "rating/v1/rated_periods", params={
+            "include": "components",
+            "supply_node_ref": supply_node,
+            "start_at": start_at.isoformat(),
+            "end_at": end_at.isoformat(),
+        })
+
+        async with response:
+            if response.status != 200:
+                raise APIException({
+                    "status": response.status,
+                    "message": await response.text()
+                })
+
+            # TODO: Refactor
             return FlickPrice(await response.json())
 
 
