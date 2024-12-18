@@ -4,7 +4,6 @@ from aiohttp import ClientSession, ClientResponse, FormData
 
 from .const import (
     DEFAULT_API_HOST,
-    DEFAULT_PRICE_ENDPOINT,
     DEFAULT_AUTH_ENDPOINT,
     DEFAULT_CLIENT_ID,
     DEFAULT_CLIENT_SECRET
@@ -28,34 +27,7 @@ class AbstractFlickAuth(ABC):
     async def async_get_access_token(self) -> str:
         """Return a valid access token."""
 
-    async def get_new_token(self, username: str, password: str,
-                            client_id: str, client_secret: str,
-                            url: str = DEFAULT_AUTH_ENDPOINT
-                            ) -> dict:
-        """Generate access token object via the API."""
-        data = FormData(fields={
-            "grant_type": "password",
-            "client_id": client_id,
-            "client_secret": client_secret,
-            "username": username,
-            "password": password
-        })
-
-        result = await self.websession.request(
-            "POST", urljoin(self.host, url), data=data
-        )
-
-        async with result:
-            if result.status != 200:
-                raise AuthException({
-                    "status": result.status,
-                    "message": await result.text()
-                })
-
-            return await result.json()
-
-    async def request(self, method,
-                      url=DEFAULT_PRICE_ENDPOINT, **kwargs) -> ClientResponse:
+    async def request(self, method, url, **kwargs) -> ClientResponse:
         """Make a request."""
         headers = kwargs.get("headers")
 
@@ -73,7 +45,7 @@ class AbstractFlickAuth(ABC):
 
 
 class SimpleFlickAuth(AbstractFlickAuth):
-    """Simple implementation of AbstractFlickAuth that gets a token once."""
+    """Simple implementation of AbstractFlickAuth that gets a token once using password grant."""
     def __init__(self, username: str, password: str,
                  websession: ClientSession,
                  client_id: str = DEFAULT_CLIENT_ID,
@@ -89,11 +61,36 @@ class SimpleFlickAuth(AbstractFlickAuth):
 
         self._token = None
 
+    async def get_new_token(self, username: str, password: str,
+                            client_id: str, client_secret: str
+                            ) -> dict:
+        """Generate access token object via the password grant."""
+        data = FormData(fields={
+            "grant_type": "password",
+            "client_id": client_id,
+            "client_secret": client_secret,
+            "username": username,
+            "password": password
+        })
+
+        result = await self.websession.request(
+            "POST", urljoin(self.host, self._auth_url), data=data
+        )
+
+        async with result:
+            if result.status != 200:
+                raise AuthException({
+                    "status": result.status,
+                    "message": await result.text()
+                })
+
+            return await result.json()
+
     async def async_get_access_token(self):
         if not self._token:
             ret = await self.get_new_token(self._username, self._password,
                                            self._client_id,
-                                           self._client_secret, self._auth_url)
+                                           self._client_secret)
 
             self._token = ret["id_token"]
 
