@@ -1,6 +1,5 @@
 """Python API For Flick Electric in New Zealand"""
 from .authentication import AbstractFlickAuth
-from .const import DEFAULT_API_HOST
 from .types import CustomerAccount, RatingRatedPeriod, APIException, UnauthorizedException, FlickPrice
 
 import json_api_doc
@@ -9,9 +8,8 @@ import json_api_doc
 class FlickAPI():
     """Python API For Flick Electric in New Zealand"""
 
-    def __init__(self, auth: AbstractFlickAuth, host: str = DEFAULT_API_HOST):
+    def __init__(self, auth: AbstractFlickAuth):
         self._auth: AbstractFlickAuth = auth
-        self._host: str = host
 
     async def __getJsonDoc(self, *args, **kwargs):
         response = await self._auth.request(*args, **kwargs)
