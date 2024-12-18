@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="PyFlick",
-    version="0.0.2",
+    version="1.0.0",
     author="ZephireNZ",
     author_email="brynley+pypi@zephire.nz",
     description="Python API For Flick Electric in New Zealand",
