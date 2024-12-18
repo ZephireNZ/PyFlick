@@ -1,10 +1,11 @@
-[![Build Status](https://travis-ci.org/ZephireNZ/PyFlick.png?branch=master)](https://travis-ci.org/ZephireNZ/PyFlick)
+# PyFlick
+
+![Build Status](https://github.com/ZephireNZ/PyFlick/actions/workflows/build-and-deploy.yml/badge.svg)
 [![PyPI version](https://badge.fury.io/py/PyFlick.svg)](https://pypi.org/project/PyFlick/)
 
-# PyFlick
 A quick and dirty Python API for [Flick Electric](https://flickelectric.co.nz).
 
-### Usage
+## Usage
 
 ```python
 from pyflick import FlickAPI
