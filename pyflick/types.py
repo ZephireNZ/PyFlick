@@ -4,14 +4,19 @@ from datetime import datetime as dt
 from decimal import Decimal
 
 
-class CustomerIcpConsumer(TypedDict):
+class JsonApiResource(TypedDict):
+    type: str
+    id: str
+
+
+class CustomerIcpConsumer(JsonApiResource):
     type = "customer_icp_consumer"
     icp_number: str
     supply_node_ref: str
     physical_address: str
 
 
-class CustomerAccount(TypedDict):
+class CustomerAccount(JsonApiResource):
     type = "customer_account"
     account_number: str
     address: str
@@ -19,13 +24,13 @@ class CustomerAccount(TypedDict):
     main_consumer: Optional[CustomerIcpConsumer]
 
 
-class RatingComponent(TypedDict):
+class RatingComponent(JsonApiResource):
     # TODO: Attributes
     type = "rating_component"
     pass
 
 
-class RatingRatedPeriod(TypedDict):
+class RatingRatedPeriod(JsonApiResource):
     type = "rating_rated_period"
     start_at: str
     end_at: str
