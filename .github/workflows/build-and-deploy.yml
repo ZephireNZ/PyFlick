@@ -40,9 +40,9 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/PyFlick  # Replace <package-name> with your PyPI project name
+      url: https://pypi.org/p/PyFlick
     permissions:
-      id-token: write  # IMPORTANT: mandatory for trusted publishing
+      id-token: write
 
     steps:
       - name: Download all the dists
@@ -60,8 +60,8 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write  # IMPORTANT: mandatory for making GitHub Releases
-      id-token: write  # IMPORTANT: mandatory for sigstore
+      contents: write
+      id-token: write
 
     steps:
     - name: Download all the dists
@@ -105,7 +105,7 @@ jobs:
       url: https://test.pypi.org/p/PyFlick
 
     permissions:
-      id-token: write  # IMPORTANT: mandatory for trusted publishing
+      id-token: write
 
     steps:
     - name: Download all the dists
