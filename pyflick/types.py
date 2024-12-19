@@ -51,7 +51,7 @@ class APIException(Exception):
     pass
 
 
-class UnauthorizedException(Exception):
+class AuthException(Exception):
     pass
 
 

@@ -2,6 +2,8 @@ from abc import ABC, abstractmethod
 
 from aiohttp import ClientSession, ClientResponse, FormData
 
+from pyflick.types import AuthException
+
 from .const import (
     DEFAULT_API_HOST,
     DEFAULT_AUTH_ENDPOINT,
@@ -96,6 +98,3 @@ class SimpleFlickAuth(AbstractFlickAuth):
 
         return self._token
 
-
-class AuthException(Exception):
-    pass

@@ -1,6 +1,6 @@
 """Python API For Flick Electric in New Zealand"""
 from .authentication import AbstractFlickAuth
-from .types import CustomerAccount, RatingRatedPeriod, APIException, UnauthorizedException, FlickPrice
+from .types import AuthException, CustomerAccount, RatingRatedPeriod, APIException, FlickPrice
 
 import json_api_doc
 
@@ -16,7 +16,10 @@ class FlickAPI():
 
         async with response:
             if (response.status in [401, 403]):
-                raise UnauthorizedException()
+                raise AuthException({
+                    "status": response.status,
+                    "message": await response.text()
+                })
             if response.status != 200:
                 raise APIException({
                     "status": response.status,
