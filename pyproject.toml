@@ -22,3 +22,4 @@ classifiers = [
 Homepage = "https://github.com/ZephireNZ/PyFlick"
 
 [tool.setuptools_scm]
+local_scheme = "no-local-version"
