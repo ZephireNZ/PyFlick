@@ -25,9 +25,22 @@ class CustomerAccount(JsonApiResource):
 
 
 class RatingComponent(JsonApiResource):
-    # TODO: Attributes
     type = "rating_component"
-    pass
+    charge_method: str
+    charge_setter: str
+    value: str
+    quantity: str
+    unit_code: str
+    charge_per: str
+    flow_direction: str
+    content_code: str
+    hours_of_availability: int
+    channel_number: int
+    meter_serial_number: str
+    price_name: str
+    applicable_periods: list[str]
+    single_unit_price: str
+    billable: bool
 
 
 class RatingRatedPeriod(JsonApiResource):
@@ -73,15 +86,14 @@ class PriceComponent():
         # TODO: Fix attributes
 
         self.raw = component
-        self.kind: str = component["kind"]
+        self.kind: str = component["charge_setter"]
         self.charge_method: str = component["charge_method"]
         self.charge_setter: str = component["charge_setter"]
         self.value: Decimal = Decimal(component["value"])
         self.quantity: Decimal = Decimal(component["quantity"])
         self.unit_code: str = component["unit_code"]
-        self.per: str = component["per"]
+        self.charge_per: str = component["charge_per"]
         self.flow_direction: str = component["flow_direction"]
-        self.metadata: dict = component["metadata"]
 
     def __repr__(self):
         return f"PriceComponent({self.raw})"
