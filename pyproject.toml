@@ -17,6 +17,11 @@ classifiers = [
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
 ]
+depenencies = [
+    "aiohttp==3.11.10",
+    "json-api-doc==0.15.0",
+    "python-dateutil==2.9.0.post0"
+]
 
 [project.urls]
 Homepage = "https://github.com/ZephireNZ/PyFlick"
