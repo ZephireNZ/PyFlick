@@ -18,9 +18,9 @@ classifiers = [
     "Programming Language :: Python :: 3",
 ]
 dependencies = [
-    "aiohttp==3.11.10",
-    "json-api-doc==0.15.0",
-    "python-dateutil==2.9.0.post0"
+    "aiohttp>=3.11.10",
+    "json-api-doc>=0.15.0",
+    "python-dateutil>=2.9.0.post0"
 ]
 
 [project.urls]
