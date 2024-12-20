@@ -17,7 +17,7 @@ classifiers = [
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
 ]
-depenencies = [
+dependencies = [
     "aiohttp==3.11.10",
     "json-api-doc==0.15.0",
     "python-dateutil==2.9.0.post0"
