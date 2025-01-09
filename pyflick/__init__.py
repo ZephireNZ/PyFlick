@@ -40,7 +40,7 @@ class FlickAPI():
     async def getPricing(self, supply_node: str) -> FlickPrice:
         """Gets current pricing for the given supply node."""
 
-        period: RatingRatedPeriod = await self.__getJsonDoc("GET", "rating/v1/rated_periods", params={
+        period: RatingRatedPeriod = await self.__getJsonDoc("GET", "rating/v1/rated_period", params={
             "include": "components",
             "supply_node_ref": supply_node,
         })
